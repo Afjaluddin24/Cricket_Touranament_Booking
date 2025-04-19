@@ -1,0 +1,44 @@
+/* BookingPopup.css */
+
+.custom-dialog {
+    max-width: 50%;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+  }
+  
+  .custom-content {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .custom-divider {
+    border: 0;
+    height: 2px;
+    background-color: black;
+    margin: 10px 0;
+  }
+  
+  .custom-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .custom-dialog {
+      max-width: 80%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .custom-dialog {
+      max-width: 95%;
+      padding: 10px;
+    }
+  
+    .custom-content {
+      padding: 15px;
+    }
+  }
+  

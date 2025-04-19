@@ -1,0 +1,36 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { PrimeReactProvider } from 'primereact/api';
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import Registration from "./Business/Registration"
+import Dashboard from "./Business/Page/Dashboard"
+import Login from "./Business/Login"
+import Profile from "./Business/Profile"
+import TeamsLimet from "./Business/Page/TeamsLimet"
+import Tournament from "./Business/Page/Tournament";
+import { ToastifyContainer } from "./Message/toastify";
+import BookigDetals from "./Business/Page/BookigDetals";
+
+
+function App() {
+  return (
+   <>
+    <ToastifyContainer/>
+    <PrimeReactProvider>
+    <BrowserRouter>
+      <Routes>
+        
+         <Route path="/Registration" element={<Registration/>} />
+         <Route path="/" element={<Login/>} />
+         <Route path="/Profile" element={<Profile name="Profile"/>} />
+         <Route path="/Dashboard" element={<Dashboard/>} />
+         <Route path="/PlayTeams" element={<TeamsLimet name="Teams"/>} />
+         <Route path="/Tournament" element={<Tournament name="New Tournament"/>} />
+         <Route path="/Booking" element={<BookigDetals name="Booking"/>} />
+      </Routes>
+    </BrowserRouter>
+    </PrimeReactProvider>
+   </>
+  )
+}
+
+export default App
