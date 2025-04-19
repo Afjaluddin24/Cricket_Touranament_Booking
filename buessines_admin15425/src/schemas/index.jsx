@@ -48,3 +48,12 @@ export const TournamentSchema = Yup.object({
    Logo:Yup.string().required("Require"),
    BookingLimetId:Yup.number().required("Require"),
 })
+
+export const MatchSedulSchema = Yup.object({
+   TeamA: Yup.string().required("Required"),
+   TeamB: Yup.string().required("Required"),
+   MatchDate: Yup.string().required("Required"),
+   Venue: Yup.string().required("Required"),
+   Match_type: Yup.string().required("Required"),
+   Note: Yup.string().required("Required"),
+ })

@@ -81,6 +81,14 @@ import { Link } from "react-router-dom";
                         Detail Booking
                       </Link>
                     </li>
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link"
+                        to="/ManageTournament"
+                      >
+                        Manage Touranament
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </li>

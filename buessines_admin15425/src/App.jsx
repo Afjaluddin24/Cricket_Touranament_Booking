@@ -9,6 +9,7 @@ import TeamsLimet from "./Business/Page/TeamsLimet"
 import Tournament from "./Business/Page/Tournament";
 import { ToastifyContainer } from "./Message/toastify";
 import BookigDetals from "./Business/Page/BookigDetals";
+import ManageTournament from "./Business/Page/ManageTournament";
 
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
          <Route path="/PlayTeams" element={<TeamsLimet name="Teams"/>} />
          <Route path="/Tournament" element={<Tournament name="New Tournament"/>} />
          <Route path="/Booking" element={<BookigDetals name="Booking"/>} />
+         <Route path="/ManageTournament" element={<ManageTournament name="Manage Tournament"/>} />
+
       </Routes>
     </BrowserRouter>
     </PrimeReactProvider>
