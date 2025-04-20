@@ -4,3 +4,5 @@ This repository uses a backend database built with C# and .NET Core 2022.
 business_admin15425 – This folder is used for managing a club and cricket tournament organization.
 
 cricket_tournaments_booking – This is the user-side page used for booking.
+
+Cricket tournament booking system Create by Afjal24
