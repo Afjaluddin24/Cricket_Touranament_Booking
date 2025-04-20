@@ -4,8 +4,9 @@ import { useFormik } from "formik";
 import { MatchSedulSchema } from "../../schemas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { successAlert, warningAlert } from "../../Message/SweetAlert";
-import { showSuccess } from "../../Message/toastify";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { showSuccess, showWarning } from "../../Message/toastify";
 
 const MatchSchedulePopup = (props) => {
   const [Buttonvalues, setButtonvalues] = useState("Save");
@@ -24,7 +25,7 @@ const MatchSchedulePopup = (props) => {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: MatchSedulSchema,
-    onSubmit: async(values) => {
+    onSubmit: async (values) => {
       const Savedata = {
         TournamentId: props.TournmentmatchId,
         BookingTeamsId: props.BookingTeamsId,
@@ -37,30 +38,38 @@ const MatchSchedulePopup = (props) => {
         Note: values.Note,
         AdminMasterId: props.AdminMasterId,
       };
-      console.log(Savedata);
       setButtonvalues("Please Wait...");
       try {
-        const response = await postData("",Savedata);
-        if(response.status == "Ok")
-        {
-           console.log("Save",response.result);
-           showSuccess(response.result)
-           warningAlert("warning","Tournament Play Teams is" + props.TeamsBookingliment);
-           setButtonvalues("Save");
-           resetForm();
-        }
-        else{
-          console.log("Error",response.result);
+        const response = await postData("CricketMatch/PlayMatch", Savedata);
+        if (response.status == "Ok") {
+          showWarning(
+            "Tournament Play Teams is",
+            "" + props.TeamsBookingliment
+          );
+          showSuccess(response.result);
+          MatchSedulelist();
+          setButtonvalues("Save");
+          resetForm();
+        } else {
+          console.log("Error", response.result);
           setButtonvalues("Save");
         }
       } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
         setButtonvalues("Save");
       }
     },
   });
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, resetForm } = formik;
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    resetForm,
+  } = formik;
 
   const DisplayTeams = async () => {
     try {
@@ -77,10 +86,28 @@ const MatchSchedulePopup = (props) => {
     }
   };
 
+  const [SeduleList, setSeduleList] = useState([]);
+  const MatchSedulelist = async () => {
+    try {
+      const response = await getData(
+        "CricketMatch/TounamentMatchDisplay/" + props.TournmentmatchId
+      );
+      if (response.status == "Ok") {
+        setSeduleList(response.result);
+        console.log("Data", response.result);
+      } else {
+        response.result;
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     if (props.TournmentmatchId) {
       DisplayTeams();
     }
+    MatchSedulelist();
   }, [props.TournmentmatchId]);
 
   useEffect(() => {
@@ -158,10 +185,13 @@ const MatchSchedulePopup = (props) => {
                   </div>
 
                   {/* Match Date */}
-                  <div className="col-md-6 mb-2">
+                  <div className="col-md-3 mb-2">
                     <label>Match Date</label>
                     <span className="text-danger">
-                      *{errors.MatchDate && touched.MatchDate ? errors.MatchDate : null}
+                      *
+                      {errors.MatchDate && touched.MatchDate
+                        ? errors.MatchDate
+                        : null}
                     </span>
                     <input
                       type="date"
@@ -174,7 +204,7 @@ const MatchSchedulePopup = (props) => {
                   </div>
 
                   {/* Venue */}
-                  <div className="col-md-6 mb-2">
+                  <div className="col-md-3 mb-2">
                     <label>Venue</label>
                     <span className="text-danger">
                       *{errors.Venue && touched.Venue ? errors.Venue : null}
@@ -191,10 +221,13 @@ const MatchSchedulePopup = (props) => {
                   </div>
 
                   {/* Match Type */}
-                  <div className="col-md-6 mb-2">
+                  <div className="col-md-3 mb-2">
                     <label>Match Type</label>
                     <span className="text-danger">
-                      *{errors.Match_type && touched.Match_type ? errors.Match_type : null}
+                      *
+                      {errors.Match_type && touched.Match_type
+                        ? errors.Match_type
+                        : null}
                     </span>
                     <select
                       className="form-select"
@@ -212,10 +245,13 @@ const MatchSchedulePopup = (props) => {
                   </div>
 
                   {/* Match Status */}
-                  <div className="col-md-6 mb-2">
+                  <div className="col-md-3 mb-2">
                     <label>Match Status</label>
                     <span className="text-danger">
-                      *{errors.Match_status && touched.Match_status ? errors.Match_status : null}
+                      *
+                      {errors.Match_status && touched.Match_status
+                        ? errors.Match_status
+                        : null}
                     </span>
                     <select
                       className="form-select"
@@ -266,6 +302,20 @@ const MatchSchedulePopup = (props) => {
                   </div>
                 </div>
               </form>
+              <div className="col-md-12 mt-3">
+                <DataTable
+                  value={SeduleList}
+                  stripedRows
+                  emptyMessage="No records found."
+                  tableStyle={{ minWidth: "60rem" }}
+                >
+                  <Column field="tournamentName" header="Tournament" />
+                  <Column field="teamA" header="Team A" />
+                  <Column field="teamB" header="Team B" />
+                  <Column field="tournamentType" header="tournament Formet" />
+                  <Column field="venue" header="Venue" />
+                </DataTable>
+              </div>
             </div>
           </div>
         </div>
