@@ -1,0 +1,110 @@
+/* TournamentModal.css */
+
+/* Modal styling */
+.modal-dialog.modal-lg {
+    max-width: 90%;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  /* Header */
+  .modal-header {
+    background-color: #f8f9fa;
+    padding: 1rem;
+  }
+  
+  .modal-title {
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  
+  .card-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  /* Match Card */
+  .card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    text-align: center;
+  }
+  
+  /* Team Logos */
+  .card-body .d-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card-body img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+  }
+  
+  .card-body p {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .card-body small {
+    color: #888;
+  }
+  
+  .card-body .vs {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 10px;
+  }
+  
+  /* Match Info */
+  .card-body p {
+    margin: 5px 0;
+  }
+  
+  .card-body .btn {
+    margin-top: 10px;
+  }
+  
+  /* Responsive Layout */
+  @media (max-width: 576px) {
+    .modal-dialog {
+      width: 100%;
+      margin: 0;
+    }
+  
+    .card-body .d-flex {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .card-body .vs {
+      margin: 10px 0;
+    }
+  }
+  
+  @media (min-width: 576px) {
+    .card-body .d-flex {
+      flex-direction: row;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .modal-dialog {
+      width: 80%;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .modal-dialog {
+      width: 70%;
+    }
+  }
+  

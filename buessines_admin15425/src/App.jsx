@@ -30,6 +30,7 @@ function App() {
          <Route path="/Tournament" element={<Tournament name="New Tournament"/>} />
          <Route path="/Booking" element={<BookigDetals name="Booking"/>} />
          <Route path="/ManageTournament" element={<ManageTournament name="Manage Tournament"/>} />
+         <Route path="/MatchSchedule" element={<MatchSchedule name="Tournament Match Schedule"/>} />
          <Route path="/Match" element={<Match name="Match"/>} />
 
       </Routes>
