@@ -10,6 +10,8 @@ import Tournament from "./Business/Page/Tournament";
 import { ToastifyContainer } from "./Message/toastify";
 import BookigDetals from "./Business/Page/BookigDetals";
 import ManageTournament from "./Business/Page/ManageTournament";
+import MatchSchedule from "./Business/Page/MatchSchedule";
+import Match from "./Business/Page/Match";
 
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
          <Route path="/Tournament" element={<Tournament name="New Tournament"/>} />
          <Route path="/Booking" element={<BookigDetals name="Booking"/>} />
          <Route path="/ManageTournament" element={<ManageTournament name="Manage Tournament"/>} />
+         <Route path="/Match" element={<Match name="Match"/>} />
 
       </Routes>
     </BrowserRouter>

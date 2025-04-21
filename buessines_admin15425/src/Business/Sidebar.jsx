@@ -1,4 +1,4 @@
-import { faBook, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faTrophy,faCalendarDays  } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -100,17 +100,17 @@ import { Link } from "react-router-dom";
                   aria-expanded="false"
                   aria-controls="charts"
                 >
-                  <i className="typcn typcn-chart-pie-outline menu-icon" />
-                  <span className="menu-title">Charts</span>
+                  <FontAwesomeIcon className="typcn typcn-device-desktop" style={{fontSize:"16px"}} icon={faCalendarDays}/>&nbsp;
+                  <span className="menu-title">Match</span>
                   <i className="menu-arrow" />
                 </a>
                 <div className="collapse" id="charts">
                   <ul className="nav flex-column sub-menu">
                     <li className="nav-item">
                       {" "}
-                      <a className="nav-link" href="pages/charts/chartjs.html">
-                        ChartJs
-                      </a>
+                      <Link className="nav-link" to="/MatchSchedule">
+                        Tournament
+                      </Link>
                     </li>
                   </ul>
                 </div>
