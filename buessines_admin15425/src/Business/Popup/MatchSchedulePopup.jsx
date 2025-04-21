@@ -3,10 +3,11 @@ import { getData, postData } from "../../APIConfig/ConfigAPI";
 import { useFormik } from "formik";
 import { MatchSedulSchema } from "../../schemas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { showSuccess, showWarning } from "../../Message/toastify";
+import { showError, showSuccess, showWarning } from "../../Message/toastify";
+import { warningAlert } from "../../Message/SweetAlert";
 
 const MatchSchedulePopup = (props) => {
   const [Buttonvalues, setButtonvalues] = useState("Save");
@@ -38,13 +39,12 @@ const MatchSchedulePopup = (props) => {
         Note: values.Note,
         AdminMasterId: props.AdminMasterId,
       };
-      setButtonvalues("Please Wait...");
+      setButtonvalues("Please Wait....");
       try {
         const response = await postData("CricketMatch/PlayMatch", Savedata);
         if (response.status == "Ok") {
           showWarning(
-            "Tournament Play Teams is",
-            "" + props.TeamsBookingliment
+            "Tournament Play Teams is  "+ props.TeamsBookingliment
           );
           showSuccess(response.result);
           MatchSedulelist();
@@ -101,6 +101,31 @@ const MatchSchedulePopup = (props) => {
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const Delete = async (Id) => {
+    const confirm = await warningAlert("Warning", "Are you vent to delete");
+    if (confirm) {
+      try {
+        const response = await getData("CricketMatch/Delete/" + Id);
+        if (response.status == "Ok") {
+          showSuccess(response.result);
+          MatchSedulelist();
+        } else {
+          showError(response.result);
+        }
+      } catch (error) {}
+    }
+  };
+
+  const iconDelete = (data) => {
+    return (
+      <FontAwesomeIcon
+        onClick={() => Delete(data.cricketMatchesId)}
+        style={{ color: "red", fontSize: "20px" }}
+        icon={faTrash}
+      />
+    );
   };
 
   useEffect(() => {
@@ -302,18 +327,46 @@ const MatchSchedulePopup = (props) => {
                   </div>
                 </div>
               </form>
-              <div className="col-md-12 mt-3">
+              <div className="col-md-12 text-center">
+                <h3>
+                  Touranment Participant Teams is&nbsp;
+                  <b className="text-danger">{props.TeamsBookingliment}</b>
+                </h3>
+              </div>
+              <div className="col-md-12 mt-3 mb-2">
                 <DataTable
                   value={SeduleList}
                   stripedRows
                   emptyMessage="No records found."
-                  tableStyle={{ minWidth: "60rem" }}
                 >
                   <Column field="tournamentName" header="Tournament" />
                   <Column field="teamA" header="Team A" />
                   <Column field="teamB" header="Team B" />
-                  <Column field="tournamentType" header="tournament Formet" />
+                  <Column
+                    field="matchDate"
+                    header="Match Date"
+                    body={(rowData) => {
+                      if (!rowData.matchDate) return "";
+
+                      const date = new Date(rowData.matchDate);
+                      const day = String(date.getDate()).padStart(2, "0");
+                      const month = String(date.getMonth() + 1).padStart(
+                        2,
+                        "0"
+                      ); // Months are 0-indexed
+                      const year = date.getFullYear();
+
+                      return `${day}/${month}/${year}`;
+                    }}
+                  />
+
+                  <Column field="tournamentType" header="Formet" />
                   <Column field="venue" header="Venue" />
+                  <Column
+                    body={iconDelete}
+                    header="Actions"
+                    style={{ width: "100px", textAlign: "center" }}
+                  />
                 </DataTable>
               </div>
             </div>
