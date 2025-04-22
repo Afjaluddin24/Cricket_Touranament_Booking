@@ -159,8 +159,7 @@ const ManageTournament = (props) => {
                                   setAdminMasterId(rowData.adminMasterId);
                                   setBookingTeamsId(rowData.bookingTeamsId)
                                   setTeamsBookingliment(rowData.bookingPerson)
-                                   // Correct state name
-                                  setShow(true); // Show the popup
+                                  setShow(true); 
                                 }}
                               />
                             )}

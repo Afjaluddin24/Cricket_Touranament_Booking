@@ -6,10 +6,13 @@ import { getData } from "../../APIConfig/ConfigAPI";
 import { errorAlert } from "../../Message/SweetAlert";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import Match from "./Match";
 
 const MatchSchedule = (props) => {
   const [listTeamsBookin, setListTeamsBookin] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const [CricketMatchesId, setCricketMatchesId] = useState(0);
 
   const getDisplay = async () => {
     const userId = localStorage.getItem("UserId");
@@ -27,7 +30,8 @@ const MatchSchedule = (props) => {
         // Filter to show only unique tournaments by tournamentName
         const uniqueTournaments = response.result.filter(
           (item, index, self) =>
-            index === self.findIndex((t) => t.tournamentName === item.tournamentName)
+            index ===
+            self.findIndex((t) => t.tournamentName === item.tournamentName)
         );
         setListTeamsBookin(uniqueTournaments);
       } else {
@@ -71,14 +75,28 @@ const MatchSchedule = (props) => {
                         >
                           <Column field="tournamentName" header="Tournament" />
                           <Column field="status" header="Status" />
-                          <Column field="bookingPerson" header="Booking Teams" />
+                          <Column
+                            field="bookingPerson"
+                            header="Booking Teams"
+                          />
                           <Column field="tournamentType" header="Type" />
                           <Column field="amount" header="Amount" />
                           <Column
                             header="Captain"
                             body={(rowData) => (
                               <div>
-                                <button type="button" className="btn btn-primary">Match</button>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setCricketMatchesId(
+                                      rowData.cricketMatchesId
+                                    );
+                                    setShow(true);
+                                  }}
+                                  className="btn btn-primary"
+                                >
+                                  Match
+                                </button>
                               </div>
                             )}
                           />
@@ -93,6 +111,12 @@ const MatchSchedule = (props) => {
           </div>
         </div>
       </div>
+      <Match
+        show={show}
+        setShow={setShow}
+        CricketMatchesId={CricketMatchesId}
+        setCricketMatchesId={setCricketMatchesId}
+      />
     </>
   );
 };
