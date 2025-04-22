@@ -1,11 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import Loadung from "../../Loadung";
+import { getData } from "../../APIConfig/ConfigAPI";
 
-function Match(props) {
+const Match = (props) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [MatchSedule, setMatchSedule] = useState([]);
 
+  const MatchDetals = async () => {
+    try {
+      const response = await getData("CricketMatch/DisplayMatch");
+      if (response.status == "Ok") {
+        setMatchSedule(response.result);
+        console.log("Data", response.result);
+      } else {
+        console.log("Error", response.result);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    MatchDetals();
+  }, []);
   const timer = setTimeout(() => {
     setIsLoading(false);
   }, 2000);
@@ -52,7 +71,9 @@ function Match(props) {
                             <div className="row">
                               <div className="col-md-12">
                                 <div className="col-md-12 text-left">
-                                  <span style={{ color: "black"}}>Match No &nbsp; Tournament Name</span>
+                                  <span style={{ color: "black" }}>
+                                    Match No &nbsp; Tournament Name
+                                  </span>
                                 </div>
                                 <div className="col-md-4">
                                   <img
@@ -60,11 +81,11 @@ function Match(props) {
                                     src="./TempletFiles/images/img-01_002.jpg"
                                     alt="Team1"
                                   />
-                                  <h3 style={{ color: "black"}}>Afjal</h3>
+                                  <h3 style={{ color: "black" }}>Afjal</h3>
                                 </div>
                                 <div
                                   className="col-md-4"
-                                  style={{ color: "black"}}
+                                  style={{ color: "black" }}
                                 >
                                   VS
                                 </div>
@@ -74,7 +95,7 @@ function Match(props) {
                                     src="./TempletFiles/images/img-01_002.jpg"
                                     alt="Team2"
                                   />
-                                  <h3 style={{ color: "black"}}>Afjal</h3>
+                                  <h3 style={{ color: "black" }}>Afjal</h3>
                                 </div>
                               </div>
                             </div>
@@ -88,33 +109,35 @@ function Match(props) {
                       <blockquote>
                         <div className="row">
                           <div className="col-sm-10 col-sm-offset-1">
-                          <div className="col-md-12">
-                                <div className="col-md-12 text-left">
-                                  <span style={{ color: "black"}}>Match No &nbsp; Tournament Name</span>
-                                </div>
-                                <div className="col-md-4">
-                                  <img
-                                    className="img-responsive"
-                                    src="./TempletFiles/images/img-01_002.jpg"
-                                    alt="Team1"
-                                  />
-                                  <h3 style={{ color: "black"}}>Afjal</h3>
-                                </div>
-                                <div
-                                  className="col-md-4"
-                                  style={{ color: "black"}}
-                                >
-                                  VS
-                                </div>
-                                <div className="col-md-4">
-                                  <img
-                                    className="img-responsive"
-                                    src="./TempletFiles/images/img-01_002.jpg"
-                                    alt="Team2"
-                                  />
-                                  <h3 style={{ color: "black"}}>Afjal</h3>
-                                </div>
+                            <div className="col-md-12">
+                              <div className="col-md-12 text-left">
+                                <span style={{ color: "black" }}>
+                                  Match No &nbsp; Tournament Name
+                                </span>
                               </div>
+                              <div className="col-md-4">
+                                <img
+                                  className="img-responsive"
+                                  src="./TempletFiles/images/img-01_002.jpg"
+                                  alt="Team1"
+                                />
+                                <h3 style={{ color: "black" }}>Afjal</h3>
+                              </div>
+                              <div
+                                className="col-md-4"
+                                style={{ color: "black" }}
+                              >
+                                VS
+                              </div>
+                              <div className="col-md-4">
+                                <img
+                                  className="img-responsive"
+                                  src="./TempletFiles/images/img-01_002.jpg"
+                                  alt="Team2"
+                                />
+                                <h3 style={{ color: "black" }}>Afjal</h3>
+                              </div>
+                            </div>
                             <small>Someone famous</small>
                           </div>
                         </div>
@@ -125,33 +148,35 @@ function Match(props) {
                       <blockquote>
                         <div className="row">
                           <div className="col-sm-10 col-sm-offset-1">
-                          <div className="col-md-12">
-                                <div className="col-md-12 text-left">
-                                  <span style={{ color: "black"}}>Match No &nbsp; Tournament Name</span>
-                                </div>
-                                <div className="col-md-4">
-                                  <img
-                                    className="img-responsive"
-                                    src="./TempletFiles/images/img-01_002.jpg"
-                                    alt="Team1"
-                                  />
-                                  <h3 style={{ color: "black"}}>Afjal</h3>
-                                </div>
-                                <div
-                                  className="col-md-4"
-                                  style={{ color: "black"}}
-                                >
-                                  VS
-                                </div>
-                                <div className="col-md-4">
-                                  <img
-                                    className="img-responsive"
-                                    src="./TempletFiles/images/img-01_002.jpg"
-                                    alt="Team2"
-                                  />
-                                  <h3 style={{ color: "black"}}>Afjal</h3>
-                                </div>
+                            <div className="col-md-12">
+                              <div className="col-md-12 text-left">
+                                <span style={{ color: "black" }}>
+                                  Match No &nbsp; Tournament Name
+                                </span>
                               </div>
+                              <div className="col-md-4">
+                                <img
+                                  className="img-responsive"
+                                  src="./TempletFiles/images/img-01_002.jpg"
+                                  alt="Team1"
+                                />
+                                <h3 style={{ color: "black" }}>Afjal</h3>
+                              </div>
+                              <div
+                                className="col-md-4"
+                                style={{ color: "black" }}
+                              >
+                                VS
+                              </div>
+                              <div className="col-md-4">
+                                <img
+                                  className="img-responsive"
+                                  src="./TempletFiles/images/img-01_002.jpg"
+                                  alt="Team2"
+                                />
+                                <h3 style={{ color: "black" }}>Afjal</h3>
+                              </div>
+                            </div>
                             <small>Someone famous</small>
                           </div>
                         </div>
@@ -205,69 +230,56 @@ function Match(props) {
           <div className="row">
             <div className="col-lg-12 col-sm-12 col-xs-12">
               <div className="news-post-holder">
-                <div className="col-lg-4 col-sm-6 col-xs-12">
-                  <div className="news-post-widget">
-                    <img
-                      className="img-responsive"
-                      src="./TempletFiles/images/img-01_002.jpg"
-                      alt=""
-                    />
-                    <div className="news-post-detail">
-                      <span className="date">20 march 2016</span>
-                      <h2>
-                        <a href="blog-detail.html">
-                          Free play to ground in anywhere
-                        </a>
-                      </h2>
-                      <p>
-                        Just hours after that his grandma had died, Angel Di
-                        Maria imagined how she might react if he didn't play
-                      </p>
+                {MatchSedule.map((o, index) => {
+                  const matchDate = new Date(o.matchDate).toLocaleDateString();
+
+                  return (
+                    <div key={index} className="col-lg-4 col-sm-6 col-xs-12">
+                      <div className="news-post-widget">
+                        <img
+                          className="img-responsive"
+                          src={`http://192.168.210.121:12425/Logo/${o.logo}`}
+                          style={{height:"250px"}}
+                          alt="match"
+                        />
+                        <div className="news-post-detail">
+                          <span className="date">{matchDate}</span>
+                          <h2>
+                           <b style={{fontSize:"20px"}}>{o.teamA}</b> vs <b style={{fontSize:"20px"}}>{o.teamB}</b>
+                          </h2>
+                          <p
+                            style={{
+                              display: "block",
+                              whiteSpace: "normal",
+                              margin: "4px 0",
+                            }}
+                          >
+                            <strong>Venue:&nbsp;<p>{o.venue}</p></strong> 
+                          </p>
+                          <p
+                            style={{
+                              display: "block",
+                              whiteSpace: "normal",
+                              margin: "4px 0",
+                            }}
+                          >
+                            <strong>Tournament:&nbsp;<p>{o.tournamentName}</p></strong>
+                          </p>
+                          <p
+                            style={{
+                              display: "block",
+                              whiteSpace: "normal",
+                              margin: "4px 0",
+                            }}
+                          >
+                            <strong>Organized by:&nbsp;<p>{o.fullName} (
+                              {o.cubName})</p></strong> 
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="col-lg-4 col-sm-6 col-xs-12">
-                  <div className="news-post-widget">
-                    <img
-                      className="img-responsive"
-                      src="./TempletFiles/images/img-01_002.jpg"
-                      alt=""
-                    />
-                    <div className="news-post-detail">
-                      <span className="date">20 march 2016</span>
-                      <h2>
-                        <a href="blog-detail.html">
-                          Free play to ground in anywhere
-                        </a>
-                      </h2>
-                      <p>
-                        Just hours after that his grandma had died, Angel Di
-                        Maria imagined how she might react if he didn't play
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-4 col-sm-6 col-xs-12">
-                  <div className="news-post-widget">
-                    <img
-                      className="img-responsive"
-                      src="./TempletFiles/images/img-01_002.jpg"
-                      alt=""
-                    />
-                    <div className="news-post-detail">
-                      <span className="date">20 march 2016</span>
-                      <h2>
-                        <a href="blog-detail.html">
-                          Free play to ground in anywhere
-                        </a>
-                      </h2>
-                      <p>
-                        Just hours after that his grandma had died, Angel Di
-                        Maria imagined how she might react if he didn't play
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -276,5 +288,5 @@ function Match(props) {
       <Footer />
     </>
   );
-}
+};
 export default Match;
