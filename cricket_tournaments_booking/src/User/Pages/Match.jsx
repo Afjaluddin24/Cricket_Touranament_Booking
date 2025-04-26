@@ -236,12 +236,7 @@ const Match = (props) => {
                   return (
                     <div key={index} className="col-lg-4 col-sm-6 col-xs-12">
                       <div className="news-post-widget">
-                        <img
-                          className="img-responsive"
-                          src={`http://192.168.210.121:12425/Logo/${o.logo}`}
-                          style={{height:"250px"}}
-                          alt="match"
-                        />
+                       
                         <div className="news-post-detail">
                           <span className="date">{matchDate}</span>
                           <h2>
@@ -264,16 +259,6 @@ const Match = (props) => {
                             }}
                           >
                             <strong>Tournament:&nbsp;<p>{o.tournamentName}</p></strong>
-                          </p>
-                          <p
-                            style={{
-                              display: "block",
-                              whiteSpace: "normal",
-                              margin: "4px 0",
-                            }}
-                          >
-                            <strong>Organized by:&nbsp;<p>{o.fullName} (
-                              {o.cubName})</p></strong> 
                           </p>
                         </div>
                       </div>

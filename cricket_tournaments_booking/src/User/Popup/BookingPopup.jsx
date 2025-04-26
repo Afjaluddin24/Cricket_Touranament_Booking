@@ -51,6 +51,7 @@ function BookingPopup(props) {
         ContactNo: values.ContactNo.toString(),
         VContactNo: values.VContactNo.toString(),
         Email: values.Email,
+        BookingLimetId:props.BookingTeams
       };
 
       setButtonvalue("Please Wait...");
