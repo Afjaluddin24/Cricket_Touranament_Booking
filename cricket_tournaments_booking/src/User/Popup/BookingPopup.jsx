@@ -53,13 +53,15 @@ function BookingPopup(props) {
         Email: values.Email,
         BookingLimetId:props.BookingTeams
       };
-
       setButtonvalue("Please Wait...");
       console.log(Savedata);
-
       try {
-        const response = await postData("Booking/BookingTeams", Savedata);
-        if (response.status === "Ok") {
+        const response = await postData("Booking/BookingTeams", Savedata, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+                if (response.status === "Ok") {
           console.log("Success", response.result);
           showSuccess(response.result);
           resetForm();

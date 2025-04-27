@@ -143,7 +143,7 @@ function DetailsTournament(props) {
                                       o.tournamentId,
                                       o.adminMasterId,
                                       o.cubName,
-                                      o.bookingPerson,
+                                      o.bookingLimetId,
                                     )
                                   }
                                 >

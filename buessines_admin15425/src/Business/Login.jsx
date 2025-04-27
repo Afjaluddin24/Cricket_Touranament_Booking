@@ -31,6 +31,7 @@ const Login = () => {
         Name: values.Name,
         Password: values.Password,
       };
+      console.log("Login",Savedata);
       setButtonvalue("Please Wait...");
       try {
         const response = await postData("Admin/Authentication", Savedata);
