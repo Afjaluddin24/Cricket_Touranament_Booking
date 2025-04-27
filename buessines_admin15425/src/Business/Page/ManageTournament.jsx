@@ -34,6 +34,7 @@ const ManageTournament = (props) => {
 
       if (response && response.result && Array.isArray(response.result)) {
         setListTeamsBookin(response.result);
+        console.log("My Data",response.result);
       } else {
         console.warn("No records found or malformed response:", response);
         setListTeamsBookin([]);
