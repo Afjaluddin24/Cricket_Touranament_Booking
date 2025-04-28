@@ -5,7 +5,11 @@ import Footer from "../Footer";
 import { getData } from "../../APIConfig/ConfigAPI";
 import { errorAlert, warningAlert } from "../../Message/SweetAlert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faPhone, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faPhone,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { showSuccess } from "../../Message/toastify";
@@ -18,7 +22,7 @@ const ManageTournament = (props) => {
   const [TournmentmatchId, setTournmentmatchId] = useState(0);
   const [AdminMasterId, setAdminMasterId] = useState(0);
   const [BookingTeamsId, setBookingTeamsId] = useState(0);
-  const [TeamsBookingliment,setTeamsBookingliment] = useState(0);
+  const [TeamsBookingliment, setTeamsBookingliment] = useState(0);
 
   const getDisplay = async () => {
     const userId = localStorage.getItem("UserId");
@@ -30,11 +34,11 @@ const ManageTournament = (props) => {
 
     setLoading(true);
     try {
-      const response = await getData(`Tournament/DetalsTournament/${userId}`);
+      const response = await getData(`Tournament/BookingList/${userId}`);
 
       if (response && response.result && Array.isArray(response.result)) {
         setListTeamsBookin(response.result);
-        console.log("My Data",response.result);
+        console.log("My Data", response.result);
       } else {
         console.warn("No records found or malformed response:", response);
         setListTeamsBookin([]);
@@ -117,67 +121,100 @@ const ManageTournament = (props) => {
                           emptyMessage="No records found."
                           tableStyle={{ minWidth: "60rem" }}
                         >
-                          <Column field="tournamentName" header="Tournament" />
-                          <Column field="teamsName" header="Teams" />
-                          <Column field="bookingPerson" header="Booking Teams" />
+                          {/* Tournament Name */}
                           <Column
-                            header="Captain"
-                            body={(rowData) => (
-                              <div>
-                                <strong>{rowData.captainName}</strong>
-                                <div>
-                                  <a
-                                    href={`tel:${rowData.contactNo}`}
-                                    style={{
-                                      color: "black",
-                                      textDecoration: "none",
-                                    }}
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faPhone}
-                                      style={{ color: "red" }}
-                                    />{" "}
-                                    {rowData.contactNo}
-                                  </a>
-                                </div>
-                                <div>
-                                  <FontAwesomeIcon
-                                    icon={faEnvelope}
-                                    style={{ color: "green" }}
-                                  />{" "}
-                                  {rowData.email}
-                                </div>
-                              </div>
-                            )}
+                            header="Tournament"
+                            body={(rowData, options) => {
+                              const index = options.rowIndex;
+                              const current =
+                                listTeamsBookin[index]?.tournamentName;
+                              const previous =
+                                listTeamsBookin[index - 1]?.tournamentName;
+                              return current !== previous ? current : "";
+                            }}
                           />
+
+                          {/* Tournament Type */}
                           <Column
-                            header="CricHeroes"
-                            body={(rowData) => (
-                              <MatchPaly
-                                data={rowData}
-                                onClick={(tournamentId) => {
-                                  setTournmentmatchId(tournamentId);
-                                  setAdminMasterId(rowData.adminMasterId);
-                                  setBookingTeamsId(rowData.bookingTeamsId)
-                                  setTeamsBookingliment(rowData.bookingPerson)
-                                  setShow(true); 
-                                }}
-                              />
-                            )}
+                            header="Tournament Type"
+                            body={(rowData, options) => {
+                              const index = options.rowIndex;
+                              const current =
+                                listTeamsBookin[index]?.tournamentName;
+                              const previous =
+                                listTeamsBookin[index - 1]?.tournamentName;
+                              return current !== previous
+                                ? rowData.tournamentType
+                                : "";
+                            }}
+                          />
+
+                          {/* Booking Teams */}
+                          <Column
+                            header="Booking Teams"
+                            body={(rowData, options) => {
+                              const index = options.rowIndex;
+                              const current =
+                                listTeamsBookin[index]?.tournamentName;
+                              const previous =
+                                listTeamsBookin[index - 1]?.tournamentName;
+                              return current !== previous
+                                ? rowData.bookingPerson
+                                : "";
+                            }}
+                          />
+
+                          {/* Match Button (Image) */}
+                          <Column
+                            header="Match"
+                            body={(rowData, options) => {
+                              const index = options.rowIndex;
+                              const current =
+                                listTeamsBookin[index]?.tournamentName;
+                              const previous =
+                                listTeamsBookin[index - 1]?.tournamentName;
+                              return current !== previous ? (
+                                <MatchPaly
+                                  data={rowData}
+                                  onClick={(tournamentId) => {
+                                    setTournmentmatchId(tournamentId);
+                                    setAdminMasterId(rowData.adminMasterId);
+                                    setBookingTeamsId(rowData.bookingTeamsId);
+                                    setTeamsBookingliment(
+                                      rowData.bookingPerson
+                                    );
+                                    setShow(true);
+                                  }}
+                                />
+                              ) : (
+                                ""
+                              );
+                            }}
                             style={{ width: "70px", textAlign: "center" }}
                           />
+
+                          {/* Delete Button */}
                           <Column
                             header="Delete"
-                            body={(rowData) => (
-                              <button
-                                onClick={() =>
-                                  handleDelete(rowData.bookingTeamsId)
-                                }
-                                className="btn btn-sm btn-danger"
-                              >
-                                <FontAwesomeIcon icon={faTrash} />
-                              </button>
-                            )}
+                            body={(rowData, options) => {
+                              const index = options.rowIndex;
+                              const current =
+                                listTeamsBookin[index]?.tournamentName;
+                              const previous =
+                                listTeamsBookin[index - 1]?.tournamentName;
+                              return current !== previous ? (
+                                <button
+                                  onClick={() =>
+                                    handleDelete(rowData.bookingTeamsId)
+                                  }
+                                  className="btn btn-sm btn-danger"
+                                >
+                                  <FontAwesomeIcon icon={faTrash} />
+                                </button>
+                              ) : (
+                                ""
+                              );
+                            }}
                             style={{ width: "80px", textAlign: "center" }}
                           />
                         </DataTable>
