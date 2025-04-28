@@ -89,6 +89,11 @@ import { Link } from "react-router-dom";
                         Manage Touranament
                       </Link>
                     </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/MatchSchedule">
+                        Tournament
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </li>
@@ -106,10 +111,9 @@ import { Link } from "react-router-dom";
                 </a>
                 <div className="collapse" id="charts">
                   <ul className="nav flex-column sub-menu">
-                    <li className="nav-item">
-                      {" "}
-                      <Link className="nav-link" to="/MatchSchedule">
-                        Tournament
+                  <li className="nav-item">
+                      <Link className="nav-link" to="">
+                        News
                       </Link>
                     </li>
                   </ul>

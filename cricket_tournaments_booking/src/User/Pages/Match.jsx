@@ -30,7 +30,6 @@ const Match = (props) => {
   };
 
   useEffect(() => {
-    console.log("TournamentId", TournamentId)
     MatchDetals();
   }, [TournamentId]);
 
