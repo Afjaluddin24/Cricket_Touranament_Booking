@@ -38,7 +38,7 @@ const TournamentPopup = (props) => {
         AdminMasterId:localStorage.getItem("UserId"),
         TournamentName:values.TournamentName,
         StarDate:values.StarDate,
-        Description:values.Description,
+        Note:values.Description,
         TournamentType:values.TournamentType,
         Amount:values.Amount,
         Status:values.Status,

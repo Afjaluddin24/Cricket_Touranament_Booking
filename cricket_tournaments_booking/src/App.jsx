@@ -12,6 +12,7 @@ import Club from './User/Pages/Club';
 import TournamentList from './User/Pages/TournamentList';
 import DetalsTournment from './User/Pages/DetalsTournment';
 import { ToastifyContainer } from './Message/toastify';
+import MoreMatch from './User/Pages/MoreMatch';
 function App() {
 
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path='/Match'  element={[<Match name="Match"/>]} />
               <Route path='/Blog'  element={[<Blog name="Blog"/>]} />
               <Route path='/Contact'  element={[<Contact name="Contact"/>]} />
+              <Route path='/MoreMatch/:TournamentId'  element={[<MoreMatch name="Match"/>]} />
          </Routes>
       </BrowserRouter>
     </PrimeReactProvider>
