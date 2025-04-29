@@ -12,6 +12,7 @@ import BookigDetals from "./Business/Page/BookigDetals";
 import ManageTournament from "./Business/Page/ManageTournament";
 import MatchSchedule from "./Business/Page/MatchSchedule";
 import Match from "./Business/Page/Match";
+import News from "./Business/Page/News";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
          <Route path="/ManageTournament" element={<ManageTournament name="Manage Tournament"/>} />
          <Route path="/MatchSchedule" element={<MatchSchedule name="Tournament Match Schedule"/>} />
          <Route path="/Match" element={<Match name="Match"/>} />
+         <Route path="/News" element={<News name="News"/>} />
 
       </Routes>
     </BrowserRouter>

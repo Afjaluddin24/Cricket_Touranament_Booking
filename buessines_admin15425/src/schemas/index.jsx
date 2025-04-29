@@ -57,3 +57,9 @@ export const MatchSedulSchema = Yup.object({
    Match_type: Yup.string().required("Required"),
    Note: Yup.string().required("Required"),
  })
+
+ export const NewsSchema = Yup.object({
+   Imgs: Yup.string().required("Required"),
+   Title: Yup.string().max(50).required("Required"),
+   Description: Yup.string().required("Required"),
+ })

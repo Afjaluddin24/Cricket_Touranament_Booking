@@ -112,7 +112,7 @@ import { Link } from "react-router-dom";
                 <div className="collapse" id="charts">
                   <ul className="nav flex-column sub-menu">
                   <li className="nav-item">
-                      <Link className="nav-link" to="">
+                      <Link className="nav-link" to="/News">
                         News
                       </Link>
                     </li>
