@@ -13,13 +13,10 @@ function News(props) {
     Title:"", 
     Imgs:"", 
     Name:"", 
-    Publisheddate:"", 
     Category:"",  
     Description:"",  
-    Type:"",  
-    Sore:"",  
-    TournamentId:"", 
-    AdminMasterId:"", 
+    Sore:"",
+    TournamentId:""
   });
 
   const [TournamentList, setTournamentList] = useState([]);

@@ -1,13 +1,29 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
-import * as Yup from "yup";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { NewsSchema } from "../../schemas";
+import { getData } from "../../APIConfig/ConfigAPI";
 
 const NewssPopup = (props) => {
   const [Buttonvalue, setButtonvalue] = useState("Save");
   const [base64String, setBase64String] = useState("");
+  const [Tournament, getTournament] = useState([]);
+
+  const DisplayTournament = async () => {
+    try {
+      const response = await getData("Tournament/ListTournament/" + localStorage.getItem("UserId"));
+      console.log("Is array:", Array.isArray(response.result));
+      if (Array.isArray(response.result)) {
+        getTournament(response.result);
+      } else {
+        getTournament([]); // fallback
+        console.warn("response.result is not an array");
+      }
+    } catch (error) {
+      console.log("Tournament fetch error:", error.message);
+    }
+  };
 
   const {
     values,
@@ -21,9 +37,22 @@ const NewssPopup = (props) => {
   } = useFormik({
     enableReinitialize: true,
     initialValues: props.initialValues,
-    validationSchema:NewsSchema,
+    validationSchema: NewsSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      const Savedata = {
+        Title: values.Title,
+        Imgs: values.Imgs,
+        Name: values.Name,
+        Category: values.Category,
+        Description: values.Description,
+        Sore: values.Sore,
+        TournamentId: values.TournamentId,
+        AdminMasterId: localStorage.getItem("UserId"),
+      };
+      console.log("Buttondata", Savedata);
+      // setButtonvalue("Saving...");
+      // await postData("News/AddNews", Savedata);
+      // setButtonvalue("Save");
     },
   });
 
@@ -35,11 +64,14 @@ const NewssPopup = (props) => {
         const base64 = reader.result.split(",")[1];
         setBase64String(base64);
         setFieldValue("Imgs", base64);
-        console.log(base64);
       };
       reader.readAsDataURL(file);
     }
   };
+
+  useEffect(() => {
+    DisplayTournament();
+  }, []);
 
   return (
     <>
@@ -60,7 +92,6 @@ const NewssPopup = (props) => {
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit} className="col-md-12">
-                <div className="col-md-12">
                 <div className="row">
                   <div className="col-md-6 mb-2 mt-2">
                     <span>News Image</span>
@@ -78,8 +109,7 @@ const NewssPopup = (props) => {
                   <div className="col-md-6 mb-2 mt-2">
                     <span>News Title</span>
                     <span className="text-danger">
-                      &nbsp;*
-                      {errors.Title && touched.Title ? errors.Title : null}
+                      &nbsp;*{errors.Title && touched.Title ? errors.Title : null}
                     </span>
                     <input
                       type="text"
@@ -91,7 +121,7 @@ const NewssPopup = (props) => {
                       className="form-control"
                     />
                   </div>
-                  <div className="col-md-4 mb-2">
+                  <div className="col-md-6 mb-2">
                     <span>Player Name</span>
                     <span className="text-danger">
                       &nbsp;*{errors.Name && touched.Name ? errors.Name : null}
@@ -106,13 +136,25 @@ const NewssPopup = (props) => {
                       className="form-control"
                     />
                   </div>
-                  <div className="col-md-4 mb-2">
+                  <div className="col-md-6 mb-2">
+                    <span>Player Score</span>
+                    <span className="text-danger">
+                      &nbsp;*{errors.Sore && touched.Sore ? errors.Sore : null}
+                    </span>
+                    <input
+                      type="number"
+                      name="Sore"
+                      id="Sore"
+                      value={values.Sore}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="col-md-6 mb-2">
                     <span>Player Category</span>
                     <span className="text-danger">
-                      &nbsp;*
-                      {errors.Category && touched.Category
-                        ? errors.Category
-                        : null}
+                      &nbsp;*{errors.Category && touched.Category ? errors.Category : null}
                     </span>
                     <select
                       name="Category"
@@ -131,28 +173,32 @@ const NewssPopup = (props) => {
                       <option value="Semi Final">Semi Final</option>
                     </select>
                   </div>
-                  <div className="col-md-4 mb-2">
-                    <span>Player Score</span>
+                  <div className="col-md-6 mb-2">
+                    <span>Tournament</span>
                     <span className="text-danger">
-                      &nbsp;*{errors.Sore && touched.Sore ? errors.Sore : null}
+                      &nbsp;*{errors.TournamentId && touched.TournamentId ? errors.TournamentId : null}
                     </span>
-                    <input
-                      type="number"
-                      name="Sore"
-                      id="Sore"
-                      value={values.Sore}
+                    <select
+                      name="TournamentId"
+                      id="TournamentId"
+                      value={values.TournamentId}
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      className="form-control"
-                    />
+                      className="form-select"
+                    >
+                      <option value="">Select Tournament</option>
+                      {Array.isArray(Tournament) &&
+                        Tournament.map((o, index) => (
+                          <option key={index} value={o.tournamentId}>
+                            {o.tournamentName}
+                          </option>
+                        ))}
+                    </select>
                   </div>
                   <div className="col-md-12 mb-2">
                     <span>Description</span>
                     <span className="text-danger">
-                      &nbsp;*
-                      {errors.Description && touched.Description
-                        ? errors.Description
-                        : null}
+                      &nbsp;*{errors.Description && touched.Description ? errors.Description : null}
                     </span>
                     <textarea
                       name="Description"
@@ -171,11 +217,7 @@ const NewssPopup = (props) => {
                     >
                       {Buttonvalue !== "Save" ? (
                         <b>
-                          <FontAwesomeIcon
-                            style={{ fontSize: "20px" }}
-                            icon={faSpinner}
-                            spin
-                          />
+                          <FontAwesomeIcon style={{ fontSize: "20px" }} icon={faSpinner} spin />
                           &nbsp;Please Wait...
                         </b>
                       ) : (
@@ -183,22 +225,17 @@ const NewssPopup = (props) => {
                       )}
                     </button>
                     &nbsp;&nbsp;
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                      onClick={resetForm}
-                    >
+                    <button type="button" className="btn btn-danger" onClick={resetForm}>
                       Clear
                     </button>
                   </div>
-                </div>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
-      {props.show ? <div className="modal-backdrop show" /> : null}
+      {props.show && <div className="modal-backdrop show" />}
     </>
   );
 };
