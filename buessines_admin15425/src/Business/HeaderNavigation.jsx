@@ -15,6 +15,10 @@ import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
        Navigate("/")
     }
   }
+
+  const currentDate = new Date();
+  const day = currentDate.getDate();
+  const month = currentDate.toLocaleString("default", { month: "long" });
   return (
     <>
        <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -71,7 +75,7 @@ import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
                   className="nav-link d-flex justify-content-center align-items-center"
                   href="javascript:;"
                 >
-                  <h6 className="date mb-0">Today : Mar 23</h6>
+                  <h6 className="date mb-0">{day} {month}</h6>
                   <i className="typcn typcn-calendar" />
                 </a>
               </li>

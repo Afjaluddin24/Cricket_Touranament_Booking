@@ -34,7 +34,6 @@ function News(props) {
       console.log(error.message);
     }
   };
-
   
     const Delete = async (Id) =>{
       const confirm = await warningAlert("warning","are you went to delete")

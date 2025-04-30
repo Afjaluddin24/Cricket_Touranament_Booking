@@ -1,4 +1,4 @@
-import { faBook, faTrophy,faCalendarDays  } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faTrophy,faCalendarDays, faNewspaper  } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -105,7 +105,7 @@ import { Link } from "react-router-dom";
                   aria-expanded="false"
                   aria-controls="charts"
                 >
-                  <FontAwesomeIcon className="typcn typcn-device-desktop" style={{fontSize:"16px"}} icon={faCalendarDays}/>&nbsp;
+                  <FontAwesomeIcon className="typcn typcn-device-desktop" style={{fontSize:"16px"}} icon={faNewspaper}/>&nbsp;
                   <span className="menu-title">Match</span>
                   <i className="menu-arrow" />
                 </a>
@@ -119,7 +119,7 @@ import { Link } from "react-router-dom";
                   </ul>
                 </div>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a
                   className="nav-link"
                   data-toggle="collapse"
@@ -247,7 +247,7 @@ import { Link } from "react-router-dom";
                   <i className="typcn typcn-mortar-board menu-icon" />
                   <span className="menu-title">Documentation</span>
                 </a>
-              </li>
+              </li> */}
             </ul>
           </nav>
     </>
