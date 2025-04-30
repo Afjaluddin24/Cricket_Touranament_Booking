@@ -3,39 +3,61 @@ import HeaderNavigation from "../HeaderNavigation";
 import Sidebar from "../Sidebar";
 import Footer from "../Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { getData } from "../../APIConfig/ConfigAPI";
 import NewssPopup from "../Popup/NewssPopup";
+import { warningAlert } from "../../Message/SweetAlert";
+import { showError, showSuccess } from "../../Message/toastify";
 
 function News(props) {
   const [show, setShow] = useState(false);
   const [initialValues, setinitialValues] = useState({
-    Title:"", 
-    Imgs:"", 
-    Name:"", 
-    Category:"",  
-    Description:"",  
-    Sore:"",
-    TournamentId:""
+    Title: "",
+    Imgs: "",
+    Name: "",
+    Category: "",
+    Description: "",
+    Sore: "",
+    TournamentId: "",
   });
 
-  const [TournamentList, setTournamentList] = useState([]);
+  const [newslist, setNewslist] = useState([]);
 
-  const DisplayTournament = async () => {
+  const getNews = async () => {
     try {
       const response = await getData(
-        "Tournament/Tournament/" + localStorage.getItem("UserId")
+        "News/NewDisplay/" + localStorage.getItem("UserId")
       );
-      setTournamentList(response.result);
+      setNewslist(response.result);
+      console.log("Afjal Shelkh", response.result);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-
+  
+    const Delete = async (Id) =>{
+      const confirm = await warningAlert("warning","are you went to delete")
+      if(confirm)
+      {
+        try {
+          const response = await getData("News/Delete/"+Id)
+          if(response.status == "Ok")
+          {
+            showSuccess("Deleete Successfully");
+            getNews();
+          }
+          else{
+            showError("Samting Ron");
+          }
+        } catch (error) {
+           console.log(error.message);
+        }
+      }
+    }
 
   useEffect(() => {
-    DisplayTournament();
+    getNews();
   }, []);
 
   return (
@@ -69,7 +91,7 @@ function News(props) {
 
                       {/* Tournament Cards */}
                       <div className="row">
-                        {TournamentList.map((o, index) => (
+                        {newslist.map((o, index) => (
                           <div
                             key={index}
                             className="col-12 col-sm-6 col-md-4 col-lg-4 mb-4"
@@ -79,10 +101,10 @@ function News(props) {
                                 {/* Image */}
                                 <div className="text-center">
                                   <img
-                                    src={`http://192.168.210.121:12425/Logo/${o.logo}`}
-                                    alt="Tournament Logo"
+                                    src={`http://192.168.210.121:12425/IMG/${o.imgs}`}
+                                    alt={o.title}
                                     style={{
-                                      width: "100%",
+                                      width: "230px",
                                       height: "225px",
                                       objectFit: "cover",
                                       borderRadius: "8px",
@@ -92,43 +114,30 @@ function News(props) {
                                 </div>
 
                                 {/* Divider */}
-                                <hr style={{ margin: "20px auto", width: "100%" }} />
+                                <hr
+                                  style={{ margin: "20px auto", width: "100%" }}
+                                />
 
-                                {/* Tournament Details */}
+                                {/* News Details */}
                                 <div className="text-center mb-3">
-                                  <h6>{o.tournamentName}</h6>
-                                  <p>Tournament Type: {o.tournamentType}</p>
-                                  <p>Start Date: {new Date(o.starDate).toLocaleDateString('en-GB')}</p>
-                                  <p>Entry Fee: {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(o.amount)}</p>
-                                  <p>Max Teams: {o.bookingPerson}</p>
+                                  <h6>{o.title}</h6>
                                   <p>
-                                    Status:{" "}
-                                    <span
-                                      className={`badge ${ o.status === "Active"? "bg-success" : "bg-danger"
-                                      }`}
-                                    >
-                                      {o.status}
-                                    </span>
+                                    <strong>Player:</strong> {o.name}
                                   </p>
-                                </div>
-
-                                {/* Action Buttons */}
-                                <div className="row">
-                                  <div className="col-12 text-center">
-                                  
-                                  </div>
-                                  {/* <div className="col-6 text-center">
-                                    <FontAwesomeIcon
-                                      icon={faEdit}
-                                      title="Edit"
-                                      onClick={()=>ListTounamet(o.tournamentId)}
-                                      style={{
-                                        color: "blue",
-                                        fontSize: "20px",
-                                        cursor: "pointer",
-                                      }}
-                                    />
-                                  </div> */}
+                                  <p>
+                                    <strong>Category:</strong> {o.category}
+                                  </p>
+                                  <p>
+                                    <strong>Score:</strong> {o.sore}
+                                  </p>
+                                  <p>
+                                    <strong>Date:</strong>{" "}
+                                    {new Date(o.date).toLocaleDateString(
+                                      "en-GB"
+                                    )}
+                                  </p>
+                                  <p>{o.description}</p>
+                                  <FontAwesomeIcon icon={faTrash} onClick={() =>Delete(o.newsId)} style={{fontSize:"20px",color:"red"}}/>
                                 </div>
                               </div>
                             </div>
@@ -146,10 +155,13 @@ function News(props) {
       </div>
 
       {/* Popup for Tournament Creation/Editing */}
-      <NewssPopup show={show}
+      <NewssPopup
+        show={show}
         setShow={setShow}
         initialValues={initialValues}
-        setinitialValues={setinitialValues} />
+        setinitialValues={setinitialValues}
+        getNews={getNews}
+      />
     </>
   );
 }

@@ -3,25 +3,22 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { NewsSchema } from "../../schemas";
-import { getData } from "../../APIConfig/ConfigAPI";
+import { getData, postData } from "../../APIConfig/ConfigAPI";
+import { showError, showSuccess } from "../../Message/toastify";
 
 const NewssPopup = (props) => {
   const [Buttonvalue, setButtonvalue] = useState("Save");
-  const [base64String, setBase64String] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   const [Tournament, getTournament] = useState([]);
 
   const DisplayTournament = async () => {
     try {
-      const response = await getData("Tournament/ListTournament/" + localStorage.getItem("UserId"));
-      console.log("Is array:", Array.isArray(response.result));
-      if (Array.isArray(response.result)) {
-        getTournament(response.result);
-      } else {
-        getTournament([]); // fallback
-        console.warn("response.result is not an array");
-      }
+      const response = await getData(
+        "Tournament/DetalsTournament/" + localStorage.getItem("UserId")
+      );
+      getTournament(response.result);
     } catch (error) {
-      console.log("Tournament fetch error:", error.message);
+      console.error("Tournament fetch error:", error.message);
     }
   };
 
@@ -39,6 +36,11 @@ const NewssPopup = (props) => {
     initialValues: props.initialValues,
     validationSchema: NewsSchema,
     onSubmit: async (values) => {
+      if (submitted) return;
+
+      setSubmitted(true);
+      setButtonvalue("Please Wait...");
+
       const Savedata = {
         Title: values.Title,
         Imgs: values.Imgs,
@@ -49,10 +51,24 @@ const NewssPopup = (props) => {
         TournamentId: values.TournamentId,
         AdminMasterId: localStorage.getItem("UserId"),
       };
-      console.log("Buttondata", Savedata);
-      // setButtonvalue("Saving...");
-      // await postData("News/AddNews", Savedata);
-      // setButtonvalue("Save");
+
+      try {
+        const response = await postData("News/AddNews", Savedata);
+        if (response.status === "Ok") {
+          showSuccess(response.result);
+          resetForm();
+          props.setShow(false);
+          props.getNews();
+        } else {
+          showError(response.result);
+        }
+      } catch (error) {
+        console.error(error.message);
+        showError("Something went wrong. Please try again.");
+      } finally {
+        setButtonvalue("Save");
+        setSubmitted(false);
+      }
     },
   });
 
@@ -62,7 +78,6 @@ const NewssPopup = (props) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64 = reader.result.split(",")[1];
-        setBase64String(base64);
         setFieldValue("Imgs", base64);
       };
       reader.readAsDataURL(file);
@@ -104,8 +119,10 @@ const NewssPopup = (props) => {
                       id="Imgs"
                       onChange={handleImageChange}
                       className="form-control"
+                      disabled={submitted}
                     />
                   </div>
+
                   <div className="col-md-6 mb-2 mt-2">
                     <span>News Title</span>
                     <span className="text-danger">
@@ -119,8 +136,10 @@ const NewssPopup = (props) => {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       className="form-control"
+                      disabled={submitted}
                     />
                   </div>
+
                   <div className="col-md-6 mb-2">
                     <span>Player Name</span>
                     <span className="text-danger">
@@ -134,8 +153,10 @@ const NewssPopup = (props) => {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       className="form-control"
+                      disabled={submitted}
                     />
                   </div>
+
                   <div className="col-md-6 mb-2">
                     <span>Player Score</span>
                     <span className="text-danger">
@@ -149,12 +170,15 @@ const NewssPopup = (props) => {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       className="form-control"
+                      disabled={submitted}
                     />
                   </div>
+
                   <div className="col-md-6 mb-2">
                     <span>Player Category</span>
                     <span className="text-danger">
-                      &nbsp;*{errors.Category && touched.Category ? errors.Category : null}
+                      &nbsp;*
+                      {errors.Category && touched.Category ? errors.Category : null}
                     </span>
                     <select
                       name="Category"
@@ -163,6 +187,7 @@ const NewssPopup = (props) => {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       className="form-select"
+                      disabled={submitted}
                     >
                       <option value="">Select Category</option>
                       <option value="All Rounder">All Rounder</option>
@@ -173,10 +198,12 @@ const NewssPopup = (props) => {
                       <option value="Semi Final">Semi Final</option>
                     </select>
                   </div>
+
                   <div className="col-md-6 mb-2">
                     <span>Tournament</span>
                     <span className="text-danger">
-                      &nbsp;*{errors.TournamentId && touched.TournamentId ? errors.TournamentId : null}
+                      &nbsp;*
+                      {errors.TournamentId && touched.TournamentId ? errors.TournamentId : null}
                     </span>
                     <select
                       name="TournamentId"
@@ -185,20 +212,22 @@ const NewssPopup = (props) => {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       className="form-select"
+                      disabled={submitted}
                     >
                       <option value="">Select Tournament</option>
-                      {Array.isArray(Tournament) &&
-                        Tournament.map((o, index) => (
-                          <option key={index} value={o.tournamentId}>
-                            {o.tournamentName}
-                          </option>
-                        ))}
+                      {[...new Map(Tournament.map(item => [item.tournamentName, item])).values()].map((o, index) => (
+                        <option key={index} value={o.tournamentId}>
+                          {o.tournamentName}
+                        </option>
+                      ))}
                     </select>
                   </div>
+
                   <div className="col-md-12 mb-2">
                     <span>Description</span>
                     <span className="text-danger">
-                      &nbsp;*{errors.Description && touched.Description ? errors.Description : null}
+                      &nbsp;*
+                      {errors.Description && touched.Description ? errors.Description : null}
                     </span>
                     <textarea
                       name="Description"
@@ -207,17 +236,23 @@ const NewssPopup = (props) => {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       className="form-control"
+                      disabled={submitted}
                     ></textarea>
                   </div>
+
                   <div className="col-md-12 mt-3 mb-3">
                     <button
                       type="submit"
-                      disabled={Buttonvalue !== "Save"}
                       className="btn btn-success"
+                      disabled={Buttonvalue !== "Save" || submitted}
                     >
                       {Buttonvalue !== "Save" ? (
                         <b>
-                          <FontAwesomeIcon style={{ fontSize: "20px" }} icon={faSpinner} spin />
+                          <FontAwesomeIcon
+                            style={{ fontSize: "20px" }}
+                            icon={faSpinner}
+                            spin
+                          />
                           &nbsp;Please Wait...
                         </b>
                       ) : (
@@ -225,7 +260,12 @@ const NewssPopup = (props) => {
                       )}
                     </button>
                     &nbsp;&nbsp;
-                    <button type="button" className="btn btn-danger" onClick={resetForm}>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={resetForm}
+                      disabled={submitted}
+                    >
                       Clear
                     </button>
                   </div>
