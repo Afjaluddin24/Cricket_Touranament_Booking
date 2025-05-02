@@ -115,6 +115,32 @@ const Dashboard = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="col-md-4 col-xl-4 mt-3 stretch-card">
+                      <div className="card profile-card bg-gradient-danger">
+                        <div className="card-body">
+                          <div className="row align-items-center h-100">
+                            <div className="col-md-4">
+                              <figure className="avatar mx-auto mb-4 mb-md-0">
+                                <img
+                                  src="User/Nwes.jpg"
+                                  alt="avatar"
+                                />
+                              </figure>
+                            </div>
+                            <div className="col-md-8">
+                              <h5 className="text-white text-center text-md-left">
+                                News
+                              </h5>
+                              <div className="d-flex align-items-center justify-content-between info pt-2">
+                                <div className="col-md-12 text-center">
+                                   <h2>{Countlist.news}</h2>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     
                   </div>
                 </div>
