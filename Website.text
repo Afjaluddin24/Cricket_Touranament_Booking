@@ -1,10 +1,46 @@
-GitHub Link: https://github.com/Afjaluddin24/CRICKET_BOOKING_12425
-This repository uses a backend database built with C# and .NET Core 2022.
 
-business_admin15425 – This folder is used for managing a club and cricket tournament organization.
+GitHub Repository:
+ CRICKET_BOOKING_12425
 
-cricket_tournaments_booking – This is the user-side page used for booking.
+This repository hosts a Cricket Tournament Booking System developed using C# and .NET Core 2022, with a backend database integration to handle user data, tournament details, and bookings efficiently.
 
-Cricket tournament booking system Create by Afjal24
+Project Overview:
 
-🏏🏏🏏 Cricket 
+The system is designed to facilitate both administrative management and user-side booking of cricket tournaments. It streamlines the process of organizing cricket events.
+
+Project Structure:
+
+📁 Maine-admin:
+This file is used to manage the admin user interface. It handles user page control, login sessions, and provides admin-level functionalities for viewing and editing user information. It also works alongside the business_admin15425 module for managing account creation.
+
+📁 business_admin15425:
+This folder contains the core functionalities for club and tournament management. Admins can create, update, and delete tournament schedules, manage club information oversee bookings.
+
+📁 cricket_tournaments_booking:
+This folder represents the user-facing frontend. It allows regular users to:
+
+View upcoming cricket tournaments
+
+Register for available matches
+
+Book slots and manage their participation
+
+View booking history and notifications
+
+
+
+Additional Info:
+
+Developer: Afjal24
+
+Project Goal: To provide a digital platform for efficient cricket tournament booking and management.
+
+Technology Stack: C#, ASP.NET Core 2022, and SQL-based backend.
+
+
+
+------------------------------------------
+
+Cricket Tournament Booking System
+Developed by Afjal24
+📱 Phone No 9016281460
