@@ -6,9 +6,15 @@ import Loding from "../Loding";
 import { Link } from "react-router-dom";
 import HeadermanuPopup from "../Popup/HeadermanuPopup";
 
-function Imgnavigation(props) {
+const Imgnavigation = (props) => {
   const [isLoading, setisLoading] = useState(true);
   const [show,setShow] = useState(false);
+
+  const [initialValues,setinitialValues] = useState({
+    Imgs:"",
+    Title:"",
+    Description:""
+  })
 
   const time = setTimeout(() => {
     setisLoading(false);
@@ -100,7 +106,7 @@ function Imgnavigation(props) {
       </div>
       <Footer />
 
-      <HeadermanuPopup show={show} setShow={setShow} />
+      <HeadermanuPopup show={show} setShow={setShow} initialValues={initialValues} setinitialValues={setinitialValues} />
     </>
   );
 }
