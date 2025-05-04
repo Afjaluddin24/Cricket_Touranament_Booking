@@ -101,7 +101,7 @@ import React from 'react'
                   </div>
                 </div>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="#"
                   className="btn border add-btn shadow-none mx-2 d-none d-md-block"
@@ -111,36 +111,8 @@ import React from 'react'
                   <i className="las la-plus mr-2" />
                   New Order
                 </a>
-              </li>
-              <li className="nav-item nav-icon search-content">
-                <a
-                  href="#"
-                  className="search-toggle rounded"
-                  id="dropdownSearch"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i className="ri-search-line" />
-                </a>
-                <div
-                  className="iq-search-bar iq-sub-dropdown dropdown-menu"
-                  aria-labelledby="dropdownSearch"
-                >
-                  <form action="#" className="searchbox p-2">
-                    <div className="form-group mb-0 position-relative">
-                      <input
-                        type="text"
-                        className="text search-input font-size-12"
-                        placeholder="type here to search..."
-                      />
-                      <a href="#" className="search-link">
-                        <i className="las la-search" />
-                      </a>
-                    </div>
-                  </form>
-                </div>
-              </li>
+              </li> */}
+             
               <li className="nav-item nav-icon dropdown">
                 <a
                   href="#"

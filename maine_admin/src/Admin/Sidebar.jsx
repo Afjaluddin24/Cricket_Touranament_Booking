@@ -148,14 +148,14 @@ function Sidebar() {
                 data-parent="#iq-sidebar-toggle"
               >
                 <li className="">
-                  <a href="page-list-category.html">
-                    <i className="las la-minus" />
-                    <span>List Category</span>
-                  </a>
+                  <Link to="/Imgnavigation">
+                    <i className="fa fa-minus" />
+                    <span>Img Navigation</span>
+                  </Link>
                 </li>
                 <li className="">
                   <a href="page-add-category.html">
-                    <i className="las la-minus" />
+                    <i className="fa fa-minus" />
                     <span>Add Category</span>
                   </a>
                 </li>
@@ -208,13 +208,13 @@ function Sidebar() {
               >
                 <li className="">
                   <a href="page-list-sale.html">
-                    <i className="las la-minus" />
+                    <i className="fa fa-minus" />
                     <span>List Sale</span>
                   </a>
                 </li>
                 <li className="">
                   <a href="page-add-sale.html">
-                    <i className="las la-minus" />
+                    <i className="fa fa-minus" />
                     <span>Add Sale</span>
                   </a>
                 </li>
@@ -267,13 +267,13 @@ function Sidebar() {
               >
                 <li className="">
                   <a href="page-list-purchase.html">
-                    <i className="las la-minus" />
+                    <i className="fa fa-minus" />
                     <span>List Purchases</span>
                   </a>
                 </li>
                 <li className="">
                   <a href="page-add-purchase.html">
-                    <i className="las la-minus" />
+                    <i className="fa fa-minus" />
                     <span>Add purchase</span>
                   </a>
                 </li>
@@ -328,13 +328,13 @@ function Sidebar() {
               >
                 <li className="">
                   <a href="page-list-returns.html">
-                    <i className="las la-minus" />
+                    <i className="fa fa-minus" />
                     <span>List Returns</span>
                   </a>
                 </li>
                 <li className="">
                   <a href="page-add-return.html">
-                    <i className="las la-minus" />
+                    <i className="fa fa-minus" />
                     <span>Add Return</span>
                   </a>
                 </li>
@@ -389,13 +389,13 @@ function Sidebar() {
               >
                 <li className="">
                   <a href="page-list-customers.html">
-                    <i className="las la-minus" />
+                    <i className="fa fa-minus" />
                     <span>Customers</span>
                   </a>
                 </li>
                 <li className="">
                   <a href="page-add-customers.html">
-                    <i className="las la-minus" />
+                    <i className="fa fa-minus" />
                     <span>Add Customers</span>
                   </a>
                 </li>

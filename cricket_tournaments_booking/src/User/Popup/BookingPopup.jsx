@@ -126,7 +126,7 @@ function BookingPopup(props) {
                 <hr className="custom-divider" />
                 <form onSubmit={handleSubmit} className="col-md-12">
                   <div className="row">
-                    <div className="col-md-12 mt-2">
+                    <div className="col-md-12 mt-3">
                       <span>Teams Logo</span>
                       <span className="text-danger">
                         &nbsp;*{errors.Logo && touched.Logo ? errors.Logo : null}
