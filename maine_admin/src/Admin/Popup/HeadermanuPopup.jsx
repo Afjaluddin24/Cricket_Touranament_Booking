@@ -6,6 +6,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { useFormik } from "formik"; // ✅ Yup schema
 import { ImgsnavigationSchemas } from "../../schemas";
 import { postData } from "../../APIConfig/ConfigAPI";
+import { showError, showSuccess } from "../../Message/toastify";
 
 const HeadermanuPopup = (props) => {
   const [buttonValues,setButtonValues] = useState("Save");
@@ -21,14 +22,23 @@ const HeadermanuPopup = (props) => {
       }
       console.log(Savedata);
       setButtonValues("Please Wait...");
+      showError("try agen now");
       try {
         const response = await postData("",Savedata);
         if(response.Status == "Ok")
         {
-           
+           console.log("Save",response.result);
+           setButtonValues("Save");
+           showSuccess(response.result);
+        }
+        else{
+          console.log("Error",response.result);
+          setButtonValues("Save");
+          showError("try agen now");
         }
       } catch (error) {
         console.log(error.message);
+        setButtonValues("Save");
       }
     },
   });
@@ -130,8 +140,8 @@ const HeadermanuPopup = (props) => {
                 </div>
 
                 <div className="col-md-12 mt-3">
-                  <button type="submit" className="btn btn-success btn-lg">
-                    Save
+                  <button type="submit" disabled={buttonValues !== "Save"} className="btn btn-success btn-lg">
+                    {buttonValues !== "Save" ? <b><i class="fa-solid fa-spinner fa-spin-pulse" style={{fontSize:"40px"}}></i></b>:"Save"}
                   </button>
                 </div>
               </form>
