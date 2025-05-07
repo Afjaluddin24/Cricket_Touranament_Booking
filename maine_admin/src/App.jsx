@@ -5,6 +5,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import Dashbord from './Admin/Page/Dashbord'
 import Video from './Admin/Page/Video'
 import Imgnavigation from './Admin/Page/Imgnavigation'
+import Login from './Admin/Login';
 
 function App() {
 
@@ -12,7 +13,9 @@ function App() {
     <PrimeReactProvider>
       <BrowserRouter>
        <Routes>
-          <Route path="/" element={[<Dashbord/>]} />
+       <Route path="/" element={[<Login/>]} />
+
+          <Route path="/Home" element={[<Dashbord/>]} />
           <Route path="/Video" element={[<Video name="Video" />]} />
           <Route path="/Imgnavigation" element={[<Imgnavigation name="Img Navigation" />]} />
        </Routes>
