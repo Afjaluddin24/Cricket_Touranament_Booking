@@ -36,11 +36,7 @@ const ForgetPasswordPopup = (props) => {
       try {
         const response = await postData("", Savedata);
         if (response.Status == "Ok") {
-          console.log("Data", response.result);
-          showSuccess(response.result);
-          setButtonValues("Save");
-          props.setShow(false);
-          resetForm();
+          
         } else {
           console.log("error", response.result);
           showError("Try again now");

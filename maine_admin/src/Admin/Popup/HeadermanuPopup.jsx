@@ -163,10 +163,7 @@ const HeadermanuPopup = (props) => {
                   >
                     {buttonValues !== "Save" ? (
                       <b>
-                        <i
-                          className="fa-solid fa-spinner fa-spin-pulse"
-                          style={{ fontSize: "24px" }}
-                        ></i>
+                        <i lassName="fa-solid fa-spinner fa-spin-pulse"style={{ fontSize: "24px" }}></i>
                       </b>
                     ) : (
                       "Save"
