@@ -29,21 +29,16 @@ const Login = () => {
       console.log("Data", responsedata);
       try {
         const response = await postData("MaineAdmin/AuthenticationMaine", responsedata);
-        if (response.Status === "Ok") {
-          showSuccess(response.result);
-          localStorage.setItem("AdminId",response.result.maineAdminId);
-          localStorage.setItem("Name",response.result.name);
-          localStorage.setItem("FullName",response.result.fullName);
-          localStorage.setItem("Logo",response.result.logo);
-          localStorage.setItem("Email",response.result.email);
-          localStorage.setItem("Map",response.result.mapAdress);
-          localStorage.setItem("Addres",response.result.adress);
-          setButtonValues("Login");
-          navigate("/Home");
-        } else {
-          console.log("Error", response.result);
-          setButtonValues("Login");
-        }
+        console.log("Login", response.result);
+        localStorage.setItem("AdminId", response.result.maineAdminId);
+        localStorage.setItem("Name", response.result.name);
+        localStorage.setItem("FullName", response.result.fullName);
+        localStorage.setItem("Logo", response.result.logo);
+        localStorage.setItem("Email", response.result.email);
+        localStorage.setItem("Map", response.result.mapAdress);
+        localStorage.setItem("Addres", response.result.adress);
+        setButtonValues("Login");
+        navigate('/Home');
       } catch (error) {
         console.log(error.message);
         setButtonValues("Login");

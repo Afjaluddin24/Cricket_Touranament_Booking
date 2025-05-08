@@ -1,6 +1,23 @@
 import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { showSuccess } from '../Message/toastify';
 
- function Headermanu() {
+ const  Headermanu = () => {
+  const navigate= useNavigate();
+  const logout = () => {
+    if (window.confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem("AdminId");
+      localStorage.removeItem("Name");
+      localStorage.removeItem("FullName");
+      localStorage.removeItem("Logo");
+      localStorage.removeItem("Email");
+      localStorage.removeItem("Map");
+      localStorage.removeItem("Addres");
+      showSuccess("Logout Successfully");
+      navigate('/'); 
+    }
+  };
+
   return (
     <div className="iq-top-navbar">
     <div className="iq-navbar-custom">
@@ -385,18 +402,17 @@ import React from 'react'
                         />
                       </div>
                       <div className="p-3">
-                        <h5 className="mb-1">JoanDuo@property.com</h5>
-                        <p className="mb-0">Since 10 march, 2020</p>
+                        <h5 className="mb-1">{localStorage.getItem("FullName")}</h5>
+                        <p className="mb-0">{localStorage.getItem("Email")}</p>
                         <div className="d-flex align-items-center justify-content-center mt-3">
-                          <a
-                            href="https://templates.iqonic.design/posdash/html/app/user-profile.html"
+                          <Link 
                             className="btn border mr-2"
                           >
                             Profile
-                          </a>
-                          <a href="auth-sign-in.html" className="btn border">
+                          </Link>
+                          <Link onClick={() => logout()} className="btn border">
                             Sign Out
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>

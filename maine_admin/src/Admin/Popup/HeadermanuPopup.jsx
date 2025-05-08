@@ -26,7 +26,7 @@ const HeadermanuPopup = (props) => {
     validationSchema: ImgsnavigationSchemas,
     onSubmit: async (values) => {
       const Savedata = {
-        MaineAdminId:"",
+        MaineAdminId:localStorage.getItem("AdminId"),
         Imgs: values.Imgs,
         Title: values.Title,
         Description: values.Description,

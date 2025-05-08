@@ -21,7 +21,7 @@ function Sidebar() {
         <nav className="iq-sidebar-menu">
           <ul id="iq-sidebar-toggle" className="iq-menu">
             <li className="active">
-              <Link to="/" className="svg-icon">
+              <Link to="/Home" className="svg-icon">
                 <svg
                   className="svg-icon"
                   id="p-dash1"
