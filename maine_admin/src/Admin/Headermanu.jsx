@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { showSuccess } from '../Message/toastify';
+import { successAlert, warningAlert } from '../Message/SweetAlert';
 
  const  Headermanu = () => {
   const navigate= useNavigate();
-  const logout = () => {
-    if (window.confirm('Are you sure you want to logout?')) {
+  const logout = async() => {
+    const confirm  = await  warningAlert("Warning","Are you sure you want to logout?")
+    if (confirm) {
       localStorage.removeItem("AdminId");
       localStorage.removeItem("Name");
       localStorage.removeItem("FullName");
@@ -13,7 +14,7 @@ import { showSuccess } from '../Message/toastify';
       localStorage.removeItem("Email");
       localStorage.removeItem("Map");
       localStorage.removeItem("Addres");
-      showSuccess("Logout Successfully");
+      successAlert("Logout Successfully");
       navigate('/'); 
     }
   };

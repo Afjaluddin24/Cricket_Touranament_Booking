@@ -6,7 +6,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { useFormik } from "formik";
 import { ImgsnavigationSchemas } from "../../schemas";
 import { postData } from "../../APIConfig/ConfigAPI";
-import { showError, showSuccess } from "../../Message/toastify";
+import { errorAlert, successAlert } from "../../Message/SweetAlert";
 
 const HeadermanuPopup = (props) => {
   const [buttonValues, setButtonValues] = useState("Save");
@@ -31,24 +31,20 @@ const HeadermanuPopup = (props) => {
         Title: values.Title,
         Description: values.Description,
       };
-      console.log(Savedata);
       setButtonValues("Please Wait...");
       try {
         const response = await postData("HeaderNevication/AddImages",Savedata);
-        if (response.Status == "Ok") {
-          console.log("Data",response.result);
-          showSuccess(response.result);
+        if (response.status == "Ok") {
+          successAlert("Success",response.result);
           setButtonValues("Save");
-          props.setShow(false);
           resetForm(); 
+          props.setShow(false);
         } else {
-          console.log("error",response.result);
-          showError("Try again now");
+          errorAlert("Error",response.result);
           setButtonValues("Save");
         }
       } catch (error) {
-        console.error("Error saving data:", error);
-        showError("Something went wrong");
+        console.log("Error saving data:", error);
         setButtonValues("Save");
       }
     },
@@ -160,14 +156,15 @@ const HeadermanuPopup = (props) => {
                     type="submit"
                     disabled={buttonValues !== "Save"}
                     className="btn btn-success btn-lg"
-                  >
-                    {buttonValues !== "Save" ? (
+                  >{
+                    buttonValues !== "Save" ? (
                       <b>
-                        <i lassName="fa-solid fa-spinner fa-spin-pulse"style={{ fontSize: "24px" }}></i>
+                        <i className="fa-solid fa-spinner fa-spin-pulse" style={{ fontSize: "24px" }}></i>
                       </b>
                     ) : (
                       "Save"
-                    )}
+                    )
+                  }
                   </button>
                 </div>
               </form>

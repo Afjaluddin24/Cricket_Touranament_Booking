@@ -2,13 +2,6 @@
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCircleCheck,
-  faCircleExclamation,
-  faCircleInfo,
-  faTriangleExclamation
-} from '@fortawesome/free-solid-svg-icons';
 
 // Toastify Container (use once in your App.jsx)
 export const ToastifyContainer = () => (
@@ -29,22 +22,22 @@ export const ToastifyContainer = () => (
 // Toast functions with Font Awesome icons
 export const showSuccess = (message) =>
   toast.success(message, {
-    icon: <FontAwesomeIcon icon={faCircleCheck} />,
+    icon: <i class="fa-solid fa-circle-check"></i>,
   });
 
 export const showError = (message) =>
   toast.error(message, {
-    icon: <FontAwesomeIcon icon={faCircleExclamation} />,
+    icon: <i class="fa-solid fa-circle-exclamation"></i>,
   });
 
 export const showInfo = (message) =>
   toast.info(message, {
-    icon: <FontAwesomeIcon icon={faCircleInfo} />,
+    icon: <i class="fa-solid fa-circle-info"></i>,
   });
 
 export const showWarning = (message) =>
   toast.warn(message, {
-    icon: <FontAwesomeIcon icon={faTriangleExclamation} />,
+    icon: <i class="fa-solid fa-triangle-exclamation"></i>,
   });
 
 
