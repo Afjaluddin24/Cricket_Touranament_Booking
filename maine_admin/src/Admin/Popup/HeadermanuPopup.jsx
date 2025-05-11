@@ -10,7 +10,7 @@ import { errorAlert, successAlert } from "../../Message/SweetAlert";
 
 const HeadermanuPopup = (props) => {
   const [buttonValues, setButtonValues] = useState("Save");
-
+   console.log("Afjal shekh",props.imgId);
   const {
     values,
     errors,
@@ -27,6 +27,7 @@ const HeadermanuPopup = (props) => {
     onSubmit: async (values) => {
       const Savedata = {
         MaineAdminId:localStorage.getItem("AdminId"),
+        HeaderImgId:props.imgId,
         Imgs: values.Imgs,
         Title: values.Title,
         Description: values.Description,
