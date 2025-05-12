@@ -1,7 +1,5 @@
 import { faFacebook, faInstagram, faYoutube } from "@fortawesome/free-brands-svg-icons";
-import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { Link } from "react-router-dom";
 
 function Header() {

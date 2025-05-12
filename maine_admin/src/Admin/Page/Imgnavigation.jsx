@@ -119,7 +119,6 @@ const Imgnavigation = (props) => {
                      </div>
                      <div className="col-md-12 text-center mt-2 mb-4">
                      <i class="fas fa-edit" style={{color: "blue",fontSize:"25px"}} onClick={() => Detals(item.headerImgId)}></i>&nbsp;&nbsp;
-                     <i style={{color: "red",fontSize:"25px"}} class="fa-solid fa-trash"></i>
                      </div>
                   </div>
                 </div>
@@ -138,6 +137,7 @@ const Imgnavigation = (props) => {
         setinitialValues={setinitialValues}
         imgId={imgId}
         setImgId={setImgId}
+        NavigationImg={NavigationImg}
       />
     </>
   );

@@ -1,28 +1,36 @@
-import React from "react";
-
+import { useEffect, useState } from "react";
+import { getData } from "../APIConfig/ConfigAPI";
 function Sliderimg() {
+   const [listImg, setlistImg] = useState([]);
+
+  const NavigationImg = async () => {
+    try {
+      const responst = await getData("HeaderNevication/Display");
+      if (responst.status == "Ok") {
+        setlistImg(responst.result);
+        console.log("Afjal", responst.result);
+      } else {
+        console.log(responst.result);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    NavigationImg();
+  }, []);
   return (
     <div className="full-slider">
       <div id="carousel-example-generic" className="carousel slide">
-        {/* Indicators */}
-        <ol className="carousel-indicators">
-          <li
-            data-target="#carousel-example-generic"
-            data-slide-to={0}
-            className="active"
-          />
-          <li data-target="#carousel-example-generic" data-slide-to={1} />
-          <li data-target="#carousel-example-generic" data-slide-to={2} />
-        </ol>
-        {/* Wrapper for slides */}
         <div className="carousel-inner" role="listbox">
-          {/* First slide */}
           <div
             className="item active deepskyblue"
             data-ride="carousel"
             data-interval={5000}
           >
-            <div className="carousel-caption">
+            {NavigationImg.map((o,index)=>{
+              return(
+                <div className="carousel-caption">
               <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12" />
               <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                 <div
@@ -46,73 +54,10 @@ function Sliderimg() {
                 </div>
               </div>
             </div>
+              )
+            })}
           </div>
-          {/* /.item */}
-          {/* Second slide */}
-          <div
-            className="item skyblue"
-            data-ride="carousel"
-            data-interval={5000}
-          >
-            <div className="carousel-caption">
-              <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12" />
-              <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                <div
-                  className="slider-contant"
-                  data-animation="animated fadeInRight"
-                >
-                  <h3>
-                    If you Don’t Practice
-                    <br />
-                    You <span className="color-yellow">Don’t Derserve</span>
-                    <br />
-                    to win!
-                  </h3>
-                  <p>
-                    You can make a case for several potential winners of
-                    <br />
-                    the expanded European Championships.
-                  </p>
-                  <button className="btn btn-primary btn-lg">Button</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* /.item */}
-          {/* Third slide */}
-          <div
-            className="item darkerskyblue"
-            data-ride="carousel"
-            data-interval={5000}
-          >
-            <div className="carousel-caption">
-              <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12" />
-              <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                <div
-                  className="slider-contant"
-                  data-animation="animated fadeInRight"
-                >
-                  <h3>
-                    If you Don’t Practice
-                    <br />
-                    You <span className="color-yellow">Don’t Derserve</span>
-                    <br />
-                    to win!
-                  </h3>
-                  <p>
-                    You can make a case for several potential winners of
-                    <br />
-                    the expanded European Championships.
-                  </p>
-                  <button className="btn btn-primary btn-lg">Button</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* /.item */}
         </div>
-        {/* /.carousel-inner */}
-        {/* Controls */}
         <a
           className="left carousel-control"
           href="#carousel-example-generic"

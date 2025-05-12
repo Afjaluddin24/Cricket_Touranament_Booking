@@ -34,12 +34,13 @@ const HeadermanuPopup = (props) => {
       };
       setButtonValues("Please Wait...");
       try {
-        const response = await postData("HeaderNevication/AddImages",Savedata);
+        const response = await postData(props.imgId == 0 ? "HeaderNevication/AddImages" : "HeaderNevication/Update",Savedata);
         if (response.status == "Ok") {
           successAlert("Success",response.result);
           setButtonValues("Save");
           resetForm(); 
           props.setShow(false);
+          props.NavigationImg();
         } else {
           errorAlert("Error",response.result);
           setButtonValues("Save");
